@@ -26,7 +26,7 @@ class ElasticaService
 {
     use Configurable;
 
-    const CONFIGURE_DISABLE_INDEXING = 'disable_indexing';
+    public const CONFIGURE_DISABLE_INDEXING = 'disable_indexing';
 
     /**
      * @var Client
@@ -67,9 +67,9 @@ class ElasticaService
      */
     protected $batches = [];
 
-    const UPDATES = 'updates';
+    public const UPDATES = 'updates';
 
-    const DELETES = 'deletes';
+    public const DELETES = 'deletes';
 
     /**
      * ElasticaService constructor.
@@ -343,8 +343,7 @@ class ElasticaService
                 return true;
             }
 
-            $type = $index->getType($typeName);
-            return $type->deleteDocument($document);
+            return $index->deleteById($document->getId());
         } catch (NotFoundException $ex) {
             // If deleted records already were deleted, treat as non-error
             return null;
